@@ -1,16 +1,12 @@
 import keyboard
 import math
 
-#wqwertyuioq
+#qewdpommnghtjhzcv
 
 diffInd = 0
-diffNum = 'a'
+diffLet = 'a'
 
 keys = "qazwsxedcrfvtgbyhnujmikolp"
-
-print(math.ceil((keys.index('p')/len(keys) + .01 )*8))
-print(math.ceil((keys.index('d')/len(keys) + .01 )*8))
-
 
 def indToLed(k):
     return (math.ceil((keys.index(k)/len(keys) + .01 )*8))
@@ -18,13 +14,16 @@ def indToLed(k):
 
 def liss():
     global diffInd
+    global diffLet
 
     for i in range(0, len(keys)):
         if (keyboard.is_pressed(keys[i])):
             if(diffInd != indToLed(keys[i])):
                 diffInd = indToLed(keys[i])
                 print (diffInd)
-            print("pressed")
+            if(diffLet != keys[i]):
+                diffLet = keys[i]
+                print(diffLet)
 
 while 1:
     liss()
