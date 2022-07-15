@@ -39,7 +39,11 @@ void commandAndFunction(int lis, int whea){
   if(state == lis){
     Serial.println("hey");
     bop(whea, colors[counter]);
-    counter++;
+    if(counter > 12){
+      counter = 0;
+    } else{
+      counter++;
+    }
     state = 9;
 
   }
