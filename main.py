@@ -1,10 +1,16 @@
 import keyboard
 import math
+import serial
 
-#qewdpommnghtjhzcv
+port = input("Serial port?")
+"""ser = serial.Serial(port, 9600)
+ser.flushInput()"""
+
+#qewdpommnghtjhzcvasdttgfgjihfe
 
 diffInd = 0
 diffLet = 'a'
+meg = ''
 
 keys = "qazwsxedcrfvtgbyhnujmikolp"
 
@@ -18,12 +24,11 @@ def liss():
 
     for i in range(0, len(keys)):
         if (keyboard.is_pressed(keys[i])):
-            if(diffInd != indToLed(keys[i])):
+            if((diffInd != indToLed(keys[i])) or (diffLet != keys[i])):
                 diffInd = indToLed(keys[i])
-                print (diffInd)
-            if(diffLet != keys[i]):
                 diffLet = keys[i]
-                print(diffLet)
+                #ser.write.encode(diffInd)
+                print(diffInd)
 
 while 1:
     liss()
