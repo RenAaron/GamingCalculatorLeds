@@ -5,7 +5,7 @@
 
 #define LED_PIN 6
 #define LED_COUNT 8
-#define BRIGHTNESS 10
+#define BRIGHTNESS 5
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -31,34 +31,30 @@ void bop(int ind, uint32_t c){
     strip.setPixelColor((ind + i), c);
     strip.setPixelColor((ind + (i)*-1) - 2, c);
     strip.show();
-    delay(20);
+    delay(50);
   }
 }
 
-
-void commandAndFunction(int lis){
+void commandAndFunction(int lis, int whea){
   if(state == lis){
-    Serial.print("bop");
-
-    bop(state, colors[counter]);
-
+    Serial.println("hey");
+    bop(whea, colors[counter]);
     counter++;
-    
     state = 9;
-    
+
   }
 }
 
 void setup() {
   Serial.begin(9600);
 
-  #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
+      #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
   clock_prescale_set(clock_div_1);
 #endif
-
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(BRIGHTNESS);
+
 }
 
 void loop() {
@@ -67,13 +63,13 @@ void loop() {
     state = Serial.read();
   }
 
-  commandAndFunction(1);
-  commandAndFunction(2);
-  commandAndFunction(3);
-  commandAndFunction(4);
-  commandAndFunction(5);
-  commandAndFunction(6);
-  commandAndFunction(7);
-  commandAndFunction(8);
+  commandAndFunction('1',1);
+  commandAndFunction('2',2);
+  commandAndFunction('3',3);
+  commandAndFunction('4',4);
+  commandAndFunction('5',5);
+  commandAndFunction('6',6);
+  commandAndFunction('7',7);
+  commandAndFunction('8',8);
   
 }
