@@ -3,10 +3,10 @@ import math
 import serial
 
 port = input("Serial port?")
-"""ser = serial.Serial(port, 9600)
-ser.flushInput()"""
+ser = serial.Serial(port, 9600)
+ser.flushInput()
 
-#qewdpommnghtjhzcvasdttgfgjihfe
+#DSDGLFFJWWODJDLLFKDKFFKDLSDLDL
 
 diffInd = 0
 diffLet = 'a'
@@ -21,13 +21,14 @@ def indToLed(k):
 def liss():
     global diffInd
     global diffLet
+    global ser
 
     for i in range(0, len(keys)):
         if (keyboard.is_pressed(keys[i])):
             if((diffInd != indToLed(keys[i])) or (diffLet != keys[i])):
+                ser.write(str(diffInd).encode())
                 diffInd = indToLed(keys[i])
                 diffLet = keys[i]
-                #ser.write.encode(diffInd)
                 print(diffInd)
 
 while 1:
