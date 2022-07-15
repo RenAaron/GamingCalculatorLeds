@@ -10,7 +10,6 @@ ser.flushInput()
 
 diffInd = 0
 diffLet = 'a'
-meg = ''
 
 keys = "qazwsxedcrfvtgbyhnujmikolp"
 
