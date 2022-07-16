@@ -11,7 +11,7 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
 uint32_t colors[13] = {0xff0000, 0xff4000, 0xff9900, 0xffd500, 0x99ff00, 0x3cff00, 0x00ffd5, 0x0084ff, 0x2600ff, 0x8000ff, 0xff00ee, 0xff007b, 0xff003c};
 
-uint32_t ledIndexColors[8] = {0xffffff,0xffffff,0xffffff,0xffffff,0xffffff,0xffffff,0xffffff,0xffffff};
+uint32_t ledIndexColors[8] = {0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000};
 int state;
 
 int counter = 0;
@@ -32,16 +32,16 @@ void updateLEDs(){
     //define B from hex to RGB as variable
     byte b = (ledIndexColors[i] & 0x0000ff);
 
-    if(r < 255){
-      ledIndexColors[i] += 0x010000;
+    if(r > 0){
+      ledIndexColors[i] -= 0x010000;
     }
 
-    if(g < 255){
-      ledIndexColors[i] += 0x000100;
+    if(g > 0){
+      ledIndexColors[i] -= 0x000100;
     }
 
-    if(b < 255){
-      ledIndexColors[i] += 0x000001;
+    if(b > 0){
+      ledIndexColors[i] -= 0x000001;
     } 
     strip.setPixelColor(i, ledIndexColors[i]); 
   }
