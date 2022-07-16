@@ -26,6 +26,28 @@ void updateLEDs(){
     if(ledIndexColors[i] < 0xffffff){
       ledIndexColors[i] += 0x010101;
     }
+
+    //define R from hex to RGB as variable
+    byte r = ledIndexColors[i] >> 16;
+    //define G from hex to RGB as variable
+    byte g = (ledIndexColors[i] & 0x00ff00) >> 8;
+    //define B from hex to RGB as variable
+    byte b = (ledIndexColors[i] && 0x0000ff);
+
+    //check if R value is less than 255 
+      //if so 
+
+    if(r < 255){
+      ledIndexColors[i] += 0x010000
+    }
+
+    if(g < 255){
+      ledIndexColors[i] += 0x000100
+    }
+
+    if(b < 255){
+      ledIndexColors[i] += 0x000001
+    }
     strip.setPixelColor(i, ledIndexColors[i]);
   }
 
