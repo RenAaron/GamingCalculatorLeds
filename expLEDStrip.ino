@@ -24,7 +24,7 @@ void bop(int ind, uint32_t c){
 void updateLEDs(){
   for(int i = 0; i < 7; i++){
     if(ledIndexColors[i] < 0xffffff){
-      ledIndexColors[i] += 0x000001;
+      ledIndexColors[i] += 0x010101;
     }
     strip.setPixelColor(i, ledIndexColors[i]);
   }
