@@ -47,7 +47,7 @@ void updateLEDs(){
   }
 
   strip.show();
-  delay(4);
+  
 }
 
 void commandAndFunction(int lis, int whea){
