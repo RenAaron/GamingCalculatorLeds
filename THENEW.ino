@@ -18,6 +18,17 @@ int counter = 0;
 
 int timer = 0;
 
+void cont(){
+  rv = true;
+  for(int i = 0; i < 7; i++){
+   if(ledIndexColors[i] != 0x000000){
+    return true;
+   }
+  }
+ 
+ return false;
+}
+
 void bop(int ind, uint32_t c){
   ledIndexColors[ind - 1] = c;
   
@@ -73,13 +84,27 @@ void setup() {
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();            // Turn OFF all pixels ASAP
   strip.setBrightness(BRIGHTNESS);
+  for(int i = 1; i < 8; i++){
+    bob(i, colors[counter]);
+    updateLEDs();
+  }
+ 
+  for(int i = 8; i < 1; i++){
+    bob(i, colors[counter]);
+    updateLEDs();
+  }
+ 
+  while(cont(){
+   updateLEDs();
+  }
+ 
 
 }
 
 void loop() {
 
   if(timer > 3000){
-    rainbow(10);
+    rainbow(30);
   }
   
 
