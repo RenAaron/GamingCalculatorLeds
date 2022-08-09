@@ -17,6 +17,7 @@ int state;
 int counter = 0;
 
 int timer = 0;
+int timer2 = 0;
 
 bool cont(){
   bool rv = true;
@@ -142,21 +143,31 @@ void loop() {
 }
 
 void rainbow(int wait) {
-  // Hue of first pixel runs 5 complete loops through the color wheel.
-  // Color wheel has a range of 65536 but it's OK if we roll over, so
-  // just count from 0 to 5*65536. Adding 256 to firstPixelHue each time
-  // means we'll make 5*65536/256 = 1280 passes through this loop:
-  for(long firstPixelHue = 0; firstPixelHue < 5*65536; firstPixelHue += 256) {
+  uint32_t colors[13] = {0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff};
+
+  uint32_t ledIndexColors[8] = {0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d};
+ 
+  while (true){
+   
+    timer2++;
+    
+   if(timer2 == 30){
+     bop
+   }
+    
+    if (Serial.available() > 0) {
+      timer = 0;
+      break;
+    }
+  
+  }
     // strip.rainbow() can take a single argument (first pixel hue) or
     // optionally a few extras: number of rainbow repetitions (default 1),
     // saturation and value (brightness) (both 0-255, similar to the
     // ColorHSV() function, default 255), and a true/false flag for whether
     // to apply gamma correction to provide 'truer' colors (default true).
     strip.rainbow(firstPixelHue);
-    if (Serial.available() > 0) {
-      timer = 0;
-      break;
-    }
+    
     // Above line is equivalent to:
     // strip.rainbow(firstPixelHue, 1, 255, 255, true);
     strip.show(); // Update strip with new contents
