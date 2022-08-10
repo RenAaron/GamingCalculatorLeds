@@ -35,6 +35,36 @@ void bop(int ind, uint32_t c){
   
 }
 
+
+void updateLEDsVTwoTokyoDrift(){
+  for(int i = 0; i < 8; i++){
+   
+   //0x0073ff
+
+    //define R from hex to RGB as variable
+    byte r = ledIndexColors[i] >> 16;
+    
+    //define G from hex to RGB as variable
+    byte g = (ledIndexColors[i] & 0x00ff00) >> 8;
+    //define B from hex to RGB as variable
+    byte b = (ledIndexColors[i] & 0x0000ff);
+
+    if(r < 255){
+      ledIndexColors[i] += 0x010000;
+    }
+
+    if(g > 0){
+      ledIndexColors[i] -= 0x000100;
+    }
+
+    if(b > 91){
+      ledIndexColors[i] -= 0x000001;
+    } 
+    strip.setPixelColor(i, ledIndexColors[i]); 
+  }
+
+  strip.show();
+}
 void updateLEDs(){
   for(int i = 0; i < 8; i++){
 
@@ -78,6 +108,7 @@ void commandAndFunction(int lis, int whea){
 
 void setup() {
   Serial.begin(9600);
+  randomSeed(analogRead(0));
 
       #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
   clock_prescale_set(clock_div_1);
@@ -143,17 +174,19 @@ void loop() {
 }
 
 void rainbow(int wait) {
-  uint32_t colors[13] = {0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff};
+  colors[13] = {0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff};
 
-  uint32_t ledIndexColors[8] = {0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d};
+  ledIndexColors[8] = {0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d};
  
   while (true){
    
+    updateLEDsVTwoTokyoDrift();
     timer2++;
     
-   if(timer2 == 30){
-     bop
-   }
+    if(timer2 == 30){
+      bop(random(7);
+      timer2 = 0;
+    }
     
     if (Serial.available() > 0) {
       timer = 0;
@@ -166,12 +199,9 @@ void rainbow(int wait) {
     // saturation and value (brightness) (both 0-255, similar to the
     // ColorHSV() function, default 255), and a true/false flag for whether
     // to apply gamma correction to provide 'truer' colors (default true).
-    strip.rainbow(firstPixelHue);
     
     // Above line is equivalent to:
     // strip.rainbow(firstPixelHue, 1, 255, 255, true);
-    strip.show(); // Update strip with new contents
-    delay(wait);  // Pause for a moment
     
   }
 }
