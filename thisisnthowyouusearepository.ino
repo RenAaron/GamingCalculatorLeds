@@ -5,7 +5,7 @@
 
 #define LED_PIN 6
 #define LED_COUNT 50
-#define BRIGHTNESS 20
+int BRIGHTNESS = 255;
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRBW + NEO_KHZ800);
 
@@ -49,15 +49,15 @@ void updateLEDsVTwoTokyoDrift(){
     //define B from hex to RGB as variable
     byte b = (ledIndexColors[i] & 0x0000ff);
 
-    if(r < 255){
-      ledIndexColors[i] += 0x010000;
+    if(r > 0){
+      ledIndexColors[i] -= 0x010000;
     }
 
     if(g > 0){
       ledIndexColors[i] -= 0x000100;
     }
 
-    if(b > 91){
+    if(b > 01){
       ledIndexColors[i] -= 0x000001;
     } 
     strip.setPixelColor(i, ledIndexColors[i]); 
@@ -174,22 +174,28 @@ void loop() {
 }
 
 void rainbow(int wait) {
-  colors[13] = {0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff, 0x0073ff};
+  uint32_t colors[13] = {0xff006a, 0x0084ff, 0xff006a, 0x0084ff, 0xff006a, 0x0084ff, 0xff006a, 0x0084ff, 0xff006a, 0x0084ff, 0xff006a, 0x0084ff, 0xff006a};
+  
+  uint32_t ledIndexColors[8] = {0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000};
 
-  ledIndexColors[8] = {0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d,0xff005d};
+  timer2 = 0;
  
   while (true){
    
     updateLEDsVTwoTokyoDrift();
     timer2++;
-    
-    if(timer2 == 30){
-      bop(random(7);
+     
+    if(timer2 == 550){
+      bop(random(1,9),colors[random(1,9)]);
       timer2 = 0;
     }
     
     if (Serial.available() > 0) {
       timer = 0;
+      timer2 = 0;
+      uint32_t colors[13] = {0x0073ff, 0xff005d, 0x0073ff, 0xff005d, 0x0073ff, 0xff005d, 0x0073ff, 0xff005d, 0x0073ff, 0xff005d, 0x0073ff, 0xff005d, 0x0073ff};
+
+      uint32_t ledIndexColors[8] = {0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000,0x000000};
       break;
     }
   
@@ -203,5 +209,4 @@ void rainbow(int wait) {
     // Above line is equivalent to:
     // strip.rainbow(firstPixelHue, 1, 255, 255, true);
     
-  }
 }
