@@ -20,7 +20,6 @@ int timer = 0;
 int timer2 = 0;
 
 bool cont(){
-  bool rv = true;
   for(int i = 0; i < 7; i++){
    if(ledIndexColors[i] != 0x000000){
     return true;
