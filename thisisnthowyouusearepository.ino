@@ -25,70 +25,42 @@ bool cont(){
     return true;
    }
   }
- 
  return false;
 }
 
 void bop(int ind, uint32_t c){
-  ledIndexColors[ind - 1] = c;
-  
+  ledIndexColors[ind - 1] = c; 
 }
-
 
 void updateLEDsVTwoTokyoDrift(){
   for(int i = 0; i < 8; i++){
-   
-   //0x0073ff
-
-    //define R from hex to RGB as variable
-    byte r = ledIndexColors[i] >> 16;
-    
-    //define G from hex to RGB as variable
-    byte g = (ledIndexColors[i] & 0x00ff00) >> 8;
-    //define B from hex to RGB as variable
-    byte b = (ledIndexColors[i] & 0x0000ff);
-
-    if(r > 0){
+    if((ledIndexColors[i] >> 16) > 0){
       ledIndexColors[i] -= 0x010000;
     }
-
-    if(g > 0){
+    if(((ledIndexColors[i] & 0x00ff00) >> 8) > 0){
       ledIndexColors[i] -= 0x000100;
     }
-
-    if(b > 01){
+    if((ledIndexColors[i] & 0x0000ff) > 0){
       ledIndexColors[i] -= 0x000001;
     } 
     strip.setPixelColor(i, ledIndexColors[i]); 
   }
-
   strip.show();
 }
+
 void updateLEDs(){
   for(int i = 0; i < 8; i++){
-
-    //define R from hex to RGB as variable
-    byte r = ledIndexColors[i] >> 16;
-    
-    //define G from hex to RGB as variable
-    byte g = (ledIndexColors[i] & 0x00ff00) >> 8;
-    //define B from hex to RGB as variable
-    byte b = (ledIndexColors[i] & 0x0000ff);
-
-    if(r > 0){
+    if((ledIndexColors[i] >> 16) > 0){
       ledIndexColors[i] -= 0x010000;
     }
-
-    if(g > 0){
+    if(((ledIndexColors[i] & 0x00ff00) >> 8) > 0){
       ledIndexColors[i] -= 0x000100;
     }
-
-    if(b > 0){
+    if((ledIndexColors[i] & 0x0000ff) > 0){
       ledIndexColors[i] -= 0x000001;
     } 
     strip.setPixelColor(i, ledIndexColors[i]); 
   }
-
   strip.show();
 }
 
@@ -101,7 +73,6 @@ void commandAndFunction(int lis, int whea){
       counter++;
     }
     state = 9;
-
   }
 }
 
@@ -140,7 +111,6 @@ void setup() {
 
   delay(2000);
  
-
 }
 
 void loop() {
@@ -166,10 +136,8 @@ void loop() {
   commandAndFunction('7',7);
   commandAndFunction('8',8);
   
-
   timer++;
 
-  
 }
 
 void rainbow(int wait) {
